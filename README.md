@@ -31,7 +31,9 @@ Clone this repo to your local machine using: `git clone git@...`
 
 ```shell
 cd docker
-make up && make shell
+make up
+make solr-init
+make shell
 ```
 
 ### Install
