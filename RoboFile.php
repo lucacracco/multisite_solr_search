@@ -46,7 +46,7 @@ class RoboFile extends \Robo\Tasks {
       $task_list[$site . '_install_devel'] = $this->taskDrushStack($site)
         ->drush('en devel_generate');
       $task_list[$site . '_generate_content'] = $this->taskDrushStack($site)
-        ->drush('genc 50 --bundles=article --add-type-label --kill --authors=1');
+        ->drush('genc 5 --bundles=article --add-type-label --kill --authors=1');
       $task_list[$site . '_uninstall_devel'] = $this->taskDrushStack($site)
         ->drush('pm:uninstall devel_generate');
     }
