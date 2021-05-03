@@ -1,0 +1,23 @@
+uuid: db88d9ce-bba4-4662-a30a-28ca1cbf53e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.search_site1
+  module:
+    - views
+  theme:
+    - bartik
+id: exposedformsearch_site1page_1
+theme: bartik
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:search_site1-page_1'
+settings:
+  id: 'views_exposed_filter_block:search_site1-page_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+visibility: {  }
