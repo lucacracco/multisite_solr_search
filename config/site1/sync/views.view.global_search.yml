@@ -1,17 +1,19 @@
-uuid: e4193139-6c75-413e-a5ff-0c3636306ba1
+uuid: 983b2a1a-afc9-4505-9859-3d775d1120c4
 langcode: en
 status: true
 dependencies:
   config:
-    - search_api.index.multisite_article_site_1_2qaiwv
+    - field.storage.node.body
+    - search_api.index.article_multisite_site_1
   module:
     - search_api
-id: search_site1
-label: 'Search Site1'
+    - text
+id: global_search
+label: 'Global Search'
 module: views
 description: ''
 tag: ''
-base_table: search_api_index_multisite_article_site_1_2qaiwv
+base_table: search_api_index_article_multisite_site_1
 base_field: search_api_id
 display:
   default:
@@ -24,13 +26,13 @@ display:
         type: none
         options: {  }
       cache:
-        type: tag
+        type: none
         options: {  }
       query:
         type: views_query
         options:
-          bypass_access: false
-          skip_access: false
+          skip_access: 1
+          bypass_access: 1
           preserve_facet_query_args: false
       exposed_form:
         type: basic
@@ -62,17 +64,13 @@ display:
             next: ››
       style:
         type: default
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
       row:
         type: fields
       fields:
-        ss_title:
-          id: ss_title
-          table: search_api_datasource_multisite_article_site_1_2qaiwv_solr_multisite_document
-          field: ss_title
+        title:
+          id: title
+          table: search_api_index_article_multisite_site_1
+          field: title
           relationship: none
           group_type: group
           admin_label: ''
@@ -112,20 +110,37 @@ display:
           element_label_colon: false
           element_wrapper_type: h3
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          link_to_item: false
-          use_highlighting: false
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
           multi_type: separator
-          multi_separator: ', '
-          plugin_id: search_api
-        tm_X3b_und_body:
-          id: tm_X3b_und_body
-          table: search_api_datasource_multisite_article_site_1_2qaiwv_solr_multisite_document
-          field: tm_X3b_und_body
+          separator: ', '
+          field_api_classes: false
+          field_rendering: false
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+          plugin_id: search_api_field
+        body_1:
+          id: body_1
+          table: search_api_index_article_multisite_site_1
+          field: body
           relationship: none
           group_type: group
           admin_label: ''
@@ -170,15 +185,31 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          link_to_item: false
-          use_highlighting: false
+          click_sort_column: value
+          type: text_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
           multi_type: separator
-          multi_separator: ', '
-          plugin_id: search_api
-        ss_url:
-          id: ss_url
-          table: search_api_datasource_multisite_article_site_1_2qaiwv_solr_multisite_document
-          field: ss_url
+          separator: ', '
+          field_api_classes: false
+          field_rendering: false
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+          plugin_id: search_api_field
+        url:
+          id: url
+          table: search_api_index_article_multisite_site_1
+          field: url
           relationship: none
           group_type: group
           admin_label: ''
@@ -188,7 +219,7 @@ display:
             alter_text: false
             text: ''
             make_link: true
-            path: '{{ ss_url }}'
+            path: '{{ url }}'
             absolute: false
             external: false
             replace_spaces: false
@@ -239,7 +270,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<br/><hr/>'
+            text: '<br/><hr>'
             make_link: false
             path: ''
             absolute: false
@@ -280,7 +311,7 @@ display:
       filters:
         search_api_fulltext:
           id: search_api_fulltext
-          table: search_api_index_multisite_article_site_1_2qaiwv
+          table: search_api_index_article_multisite_site_1
           field: search_api_fulltext
           relationship: none
           group_type: group
@@ -327,7 +358,7 @@ display:
       sorts:
         search_api_relevance:
           id: search_api_relevance
-          table: search_api_index_multisite_article_site_1_2qaiwv
+          table: search_api_index_article_multisite_site_1
           field: search_api_relevance
           relationship: none
           group_type: group
@@ -337,7 +368,7 @@ display:
           expose:
             label: ''
           plugin_id: search_api
-      title: 'Search in Site1'
+      title: 'Global Search'
       header: {  }
       footer: {  }
       empty: {  }
@@ -347,11 +378,14 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
+        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
       tags:
-        - 'config:search_api.index.multisite_article_site_1_2qaiwv'
+        - 'config:field.storage.node.body'
+        - 'config:search_api.index.article_multisite_site_1'
   page_1:
     display_plugin: page
     id: page_1
@@ -359,13 +393,16 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: search-site1
+      path: global-search
       exposed_block: true
     cache_metadata:
       max-age: -1
       contexts:
+        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'user.node_grants:view'
       tags:
-        - 'config:search_api.index.multisite_article_site_1_2qaiwv'
+        - 'config:field.storage.node.body'
+        - 'config:search_api.index.article_multisite_site_1'

@@ -55,3 +55,21 @@ make shell
   robo scaffold --site=site2
   robo install:config minimal --site=site2 
   ```
+
+- Test use (**Run inside a container PHP**).
+
+  ```shell
+  drush --uri=site1 en devel_generate
+  drush --uri=site1 genc 50 --bundles=article --add-type-label --kill --authors=1
+  drush --uri=site1 pm:uninstall devel_generate
+  
+  drush --uri=site2 en devel_generate
+  drush --uri=site2 genc 50 --bundles=article --add-type-label --kill --authors=1
+  drush --uri=site2 pm:uninstall devel_generate
+  ```
+
+or run this robo command
+
+  ```shell
+  robo test:contents
+  ```

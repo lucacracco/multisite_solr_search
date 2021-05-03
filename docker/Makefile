@@ -96,6 +96,7 @@ logs:
 .PHONY: solr-init
 solr-init:
 	docker-compose exec solr make create core="drupal" host="localhost" config_set="drupal" -f /usr/local/bin/actions.mk
+	docker-compose exec solr make create core="multisite" host="localhost" config_set="drupal" -f /usr/local/bin/actions.mk
 
 # https://stackoverflow.com/a/6273809/1826109
 %:

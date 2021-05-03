@@ -7,7 +7,6 @@ module:
   config: 0
   datetime: 0
   dblog: 0
-  devel_generate: 0
   editor: 0
   field: 0
   field_ui: 0

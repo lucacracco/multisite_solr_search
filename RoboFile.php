@@ -7,6 +7,8 @@
  */
 class RoboFile extends \Robo\Tasks {
 
+  use \LucaCracco\RoboDrupal\Task\Drush\Tasks;
+
   /**
    * Run Behat test.
    *
@@ -31,6 +33,26 @@ class RoboFile extends \Robo\Tasks {
    */
   public function initInstallCommand(\Symfony\Component\Console\Input\InputInterface $input, \Consolidation\AnnotatedCommand\AnnotationData $annotationData) {
     $input->setOption('mail', 'admin@localhost.loc');
+  }
+
+  /**
+   * Insert contents.
+   */
+  public function testContents() {
+    $task_list = [];
+
+    foreach (['site1', 'site2'] as $site) {
+
+      $task_list[$site . '_install_devel'] = $this->taskDrushStack($site)
+        ->drush('en devel_generate');
+      $task_list[$site . '_generate_content'] = $this->taskDrushStack($site)
+        ->drush('genc 50 --bundles=article --add-type-label --kill --authors=1');
+      $task_list[$site . '_uninstall_devel'] = $this->taskDrushStack($site)
+        ->drush('pm:uninstall devel_generate');
+    }
+
+    $this->getBuilder()->addTaskList($task_list);
+    return $this->getBuilder();
   }
 
 }
